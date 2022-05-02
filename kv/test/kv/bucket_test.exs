@@ -2,7 +2,7 @@ defmodule KV.BucketTest do
   use ExUnit.Case, async: true
 
   setup do
-    {:ok, bucket} = KV.Bucket.start_link([])
+    bucket = start_supervised!(KV.Bucket)
     %{bucket: bucket}
   end
 
@@ -29,5 +29,9 @@ defmodule KV.BucketTest do
     # assert
     assert KV.Bucket.get(bucket, key) == nil
     assert storedValue == value
+  end
+
+  test "are temporary workders" do
+    assert Supervisor.child_spec(KV.Bucket, []).restart == :temporary
   end
 end
