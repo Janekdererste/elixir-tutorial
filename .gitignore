@@ -1,3 +1,9 @@
 .idea/
-*_build/
 *.iml
+*.vscode
+*.elixir_ls/
+
+*_build/
+
+
+
